@@ -11,7 +11,7 @@ const app = express()
 app.set('view engine', 'ejs')
 app.set('views', 'views') // unnecessary as views is the default for this
 
-const adminData = require('./routes/admin')   // valid middleware function 
+const adminRoutes = require('./routes/admin')   // valid middleware function 
 const shopRoutes = require('./routes/shop')
 
 
@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({extended: false}))
 
 app.use(express.static(path.join(__dirname, 'public')))     // used so we can access css files in public path
 
-app.use('/admin', adminData.routes)    // so use the middle ware. (OREDER MATTERS)
+app.use('/admin', adminRoutes.routes)    // so use the middle ware. (OREDER MATTERS)
 app.use(shopRoutes)     // order matters here. shop should be second. It would work other way but only because we have get inside shop
                         // if we had use then it would not work if we switched the order here.  
 
