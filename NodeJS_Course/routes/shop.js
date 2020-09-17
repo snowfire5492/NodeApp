@@ -14,7 +14,7 @@ const router = express.Router()
 // GET will do an exact match for '/'
 router.get('/', (req, res, next) => {
     const products = adminData.products
-    res.render('shop', { products: products, pageTitle: 'Shop', path: '/' })
+    res.render('shop', { products: products, pageTitle: 'Shop', path: '/', hasProducts: products.length > 0 })
 })
 
 
