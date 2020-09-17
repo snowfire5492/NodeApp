@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 const app = express() 
 
 app.set('view engine', 'pug')
+app.set('views', 'views') // unnecessary as views is the default for this
 
 const adminData = require('./routes/admin')   // valid middleware function 
 const shopRoutes = require('./routes/shop')
@@ -25,7 +26,8 @@ app.use(shopRoutes)     // order matters here. shop should be second. It would w
 // up down at the bottom here
 
 app.use((req, res, next) => {
-    res.status(404).sendFile(path.join(__dirname, 'views', '404.html'))
+    // res.status(404).sendFile(path.join(__dirname, 'views', '404.html'))
+    res.render('404', {pageTitle: 'Page Not Found'})
 })
 
 

@@ -13,12 +13,8 @@ const router = express.Router()
 // use would be okay to but we only want to hanlde get requests here
 // GET will do an exact match for '/'
 router.get('/', (req, res, next) => {
-    // path.join will build a path that works on both linux and windows os
-    
-    console.log(adminData.products)
-
-    res.sendFile(path.join(rootDir, 'views', 'shop.html'))    // sending html file 
-
+    const products = adminData.products
+    res.render('shop', { products: products, pageTitle: 'Shop', path: '/' })
 })
 
 
