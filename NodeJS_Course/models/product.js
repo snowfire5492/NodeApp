@@ -15,7 +15,9 @@ module.exports = class Product {
   }
 
   save() {
-    
+    return db.execute(
+      'INSERT INTO products (title, price, description, imageUrl) VALUES (?, ?, ?, ?)'),
+      [this.title, this.price, this.description, this.imageUrl]
     
   }
 
@@ -28,7 +30,7 @@ module.exports = class Product {
 
   static fetchAll() {
     // return the promise directly so that we can use it elsewhere
-    
+
     return db.execute('SELECT * FROM products') 
   }
 
