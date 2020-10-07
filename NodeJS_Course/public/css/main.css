@@ -38,6 +38,15 @@ form {
   text-align: center;
 }
 
+.image {
+  width: 20rem;
+  margin: auto auto;
+}
+
+.image img {
+  width: 100%;
+}
+
 .main-header__item-list {
   list-style: none;
   margin: 0;
