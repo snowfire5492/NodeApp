@@ -2,10 +2,9 @@ const path = require('path');
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const errorController = require('./controllers/error');
-// const mongoConnect = require('./util/database').mongoConnect;
 const User = require('./models/user');
 
 const app = express();
@@ -15,6 +14,7 @@ app.set('views', 'views');
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
+const authRoutes = require('./routes/auth');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -22,8 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use((req, res, next) => {
   User.findById('5f803ecf391a32319c366506')
     .then(user => {
-        // console.log(user)
-      req.user = user
+      req.user = user;
       next();
     })
     .catch(err => console.log(err));
@@ -31,25 +30,29 @@ app.use((req, res, next) => {
 
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
+app.use(authRoutes);
 
 app.use(errorController.get404);
-mongoose.connect('mongodb+srv://admin:admin1234@mymongodb.tcwcj.mongodb.net/shop?retryWrites=true&w=majority')
-    .then(result => {
-        User.findOne().then(user => {
-            if (!user) {
-                const user = new User({
-                    name: 'Eric',
-                    email: 'eric@me.com',
-                    cart: {
-                        items: []
-                    }
-                })
-                user.save()
-            }
-        })
-        
-        app.listen(3000)
-    })
-    .catch(err => {
-        console.log(err)
-    })
+
+mongoose
+  .connect(
+    'mongodb+srv://admin:admin1234@mymongodb.tcwcj.mongodb.net/store?retryWrites=true&w=majority'
+  )
+  .then(result => {
+    User.findOne().then(user => {
+      if (!user) {
+        const user = new User({
+          name: 'Eric',
+          email: 'Eric@me.com',
+          cart: {
+            items: []
+          }
+        });
+        user.save();
+      }
+    });
+    app.listen(3000);
+  })
+  .catch(err => {
+    console.log(err);
+  });
