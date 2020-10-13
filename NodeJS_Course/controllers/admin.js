@@ -20,6 +20,8 @@ exports.postAddProduct = (req, res, next) => {
   const image = req.file;
   const price = req.body.price;
   const description = req.body.description;
+
+  console.log('check')
   if (!image) {
     return res.status(422).render('admin/edit-product', {
       pageTitle: 'Add Product',
@@ -56,8 +58,7 @@ exports.postAddProduct = (req, res, next) => {
   }
 
   const imageUrl = image.path;
-  console.log(imageUrl)
-  console.log(req.user)
+
   const product = new Product({
     // _id: new mongoose.Types.ObjectId('5badf72403fd8b5be0366e81'),
     title: title,

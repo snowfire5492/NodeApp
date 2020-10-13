@@ -26,7 +26,7 @@ const fileStorage = multer.diskStorage({
     cb(null, 'images');
   },
   filename: (req, file, cb) => {
-    cb(null, new Date().toISOString() + '-' + file.originalname);
+    cb(null, new Date().toString() + '-' + file.originalname);
   }
 });
 
@@ -100,12 +100,12 @@ app.use(errorController.get404);
 
 app.use((error, req, res, next) => {
   // res.status(error.httpStatusCode).render(...);
-  res.redirect('/500');
-  // res.status(500).render('500', {
-  //   pageTitle: 'Error!',
-  //   path: '/500',
-  //   isAuthenticated: req.session.isLoggedIn
-  // });
+  // res.redirect('/500');
+  res.status(500).render('500', {
+    pageTitle: 'Error!',
+    path: '/500',
+    isAuthenticated: req.session.isLoggedIn
+  });
 });
 
 mongoose
@@ -117,4 +117,3 @@ mongoose
     console.log(err);
   });
 
-  
