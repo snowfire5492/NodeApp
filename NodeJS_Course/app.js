@@ -49,7 +49,7 @@ app.use((req, res, next) => {
       req.user = user;
       next();
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log(err));  // catch will only fire if say the database is down
 });
 
 app.use((req, res, next) => {
