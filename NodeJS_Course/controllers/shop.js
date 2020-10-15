@@ -139,7 +139,7 @@ exports.postCartDeleteProduct = (req, res, next) => {
     });
 };
 
-exports.getCheckout = (req, res, next)
+// exports.getCheckout = (req, res, next)
 
 exports.postOrder = (req, res, next) => {
   req.user
